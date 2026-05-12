@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <h2 class="text-warning">Inscripción de Rutina</h2>
+  <form #formContacto="ngForm" (ngSubmit)="enviar(formContacto)">
+    <div class="mb-3">
+      <label>Nombre Completo</label>
+      <input type="text" class="form-control" name="nombre" [(ngModel)]="nombre" required minlength="3" #nombreRef="ngModel"
+      [class.is-invalid]="nombreRef.invalid && nombreRef.touched">
+      <div *ngIf="nombreRef.invalid && nombreRef.touched" class="text-danger">
+        <small *ngIf="nombreRef.errors?.['required']">El nombre es obligatorio</small>
+        <small *ngIf="nombreRef.errors?.['minlength']">Mínimo 3 caracteres</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Rutina (Ej: Cardio, Pesas)</label>
+      <input type="text" class="form-control" name="rutina" [(ngModel)]="rutina" required #rutinaRef="ngModel"
+      [class.is-invalid]="rutinaRef.invalid && rutinaRef.touched">
+      <div *ngIf="rutinaRef.invalid && rutinaRef.touched" class="text-danger">
+        <small>La rutina es obligatoria</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Horario</label>
+      <input type="text" class="form-control" name="horario" [(ngModel)]="horario" required #horarioRef="ngModel"
+      [class.is-invalid]="horarioRef.invalid && horarioRef.touched">
+      <div *ngIf="horarioRef.invalid && horarioRef.touched" class="text-danger">
+        <small>El horario es obligatorio</small>
+      </div>
+    </div>
+
+    <button class="btn btn-warning" type="submit" [disabled]="formContacto.invalid">Inscribir</button>
+  </form>
+
+  <hr>
+  <h3 class="text-warning mt-4">Usuarios Inscritos (localStorage)</h3>
+  <table class="table table-dark table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Rutina</th>
+        <th>Horario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaInscritos">
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.rutina }}</td>
+        <td>{{ item.horario }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
